@@ -487,3 +487,4 @@ test:
   securityContext:
     runAsUser: 1000
     runAsNonRoot: true
+DONOTMERGE: force
