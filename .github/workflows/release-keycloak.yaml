@@ -1,11 +1,12 @@
-name: Release Charts
+name: Release keycloak chart
 
 on:
   push:
     branches:
       - master
-#    paths:
-#      - 'charts/keycloak/**'
+    paths:
+      - 'charts/keycloak/**'
+  workflow_dispatch:
 
 jobs:
   bump-version:
