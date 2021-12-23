@@ -55,6 +55,7 @@ if __name__ == "__main__":
 
     print(f"Doing upgrade of type {upgrade_type.value} now")
     if upgrade_type == UpgradeType.NONE:
+        print("No need for a version bump detected")
         print("::set-output name=publish::false")
         exit(0)
 
