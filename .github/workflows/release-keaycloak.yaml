@@ -31,6 +31,7 @@ jobs:
       - name: Bump Version
         id: bump-version
         run: |
+            pip install bump2version
             python scripts/bump-version.py keycloak
   release:
     if: ${{ needs.bump-version.outputs.publish == true }}
