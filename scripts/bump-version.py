@@ -2,6 +2,10 @@ import subprocess
 import sys
 from enum import Enum
 
+MAJOR_KEYWORDS = ["breaking", "major"]
+MINOR_KEYWORDS = ["feat", "feature", "minor"]
+SKIP_BUMP_KEYWORDS = ["chore", "Bump version"]
+
 
 class UpgradeType(Enum):
     NONE = 'none'
@@ -9,10 +13,6 @@ class UpgradeType(Enum):
     MINOR = 'minor'
     MAJOR = 'major'
 
-
-MAJOR_KEYWORDS = ["breaking", "major"]
-MINOR_KEYWORDS = ["feat", "feature", "minor"]
-SKIP_BUMP_KEYWORDS = ["chore", "Bump version"]
 
 upgrade_type = UpgradeType.NONE
 
