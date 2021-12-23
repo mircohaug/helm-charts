@@ -8,8 +8,10 @@ on:
 #      - 'charts/keycloak/**'
 
 jobs:
-  release:
+  bump-version:
     runs-on: ubuntu-latest
+    outputs:
+      publish: ${{ steps.bump-version.outputs.publish }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -27,21 +29,35 @@ jobs:
           python-version: 3.9
 
       - name: Bump Version
+        id: bump-version
         run: |
             python scripts/bump-version.py keycloak
+  release:
+    if: ${{ jobs.bump-version.outputs.publish == true }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
-#      - name: Install Helm
-#        uses: azure/setup-helm@v1
-#        with:
-#          version: v3.5.1
-#
-#      - name: Add dependency chart repos
-#        run: |
-#          helm repo add bitnami https://charts.bitnami.com/bitnami
-#
-#      - name: Run chart-releaser
-#        uses: helm/chart-releaser-action@v1.1.0
-#        with:
-#          charts_dir: charts
-#        env:
-#          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
+      - name: Install Helm
+        uses: azure/setup-helm@v1
+        with:
+          version: v3.5.1
+
+      - name: Add dependency chart repos
+        run: |
+          helm repo add bitnami https://charts.bitnami.com/bitnami
+
+      - name: Run chart-releaser
+        uses: helm/chart-releaser-action@v1.1.0
+        with:
+          charts_dir: charts
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
