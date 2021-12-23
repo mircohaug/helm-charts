@@ -7,11 +7,13 @@ on:
       - 'charts/**'
   workflow_dispatch:
 jobs:
-  release:
+  keycloak:
     uses: mircohaug/helm-charts/.github/workflows/release-chart.yaml@master
     with:
       chart: keycloak
   mailhog:
+    needs:
+      - keycloak
     uses: mircohaug/helm-charts/.github/workflows/release-chart.yaml@master
     with:
-      chart: mailhof
+      chart: mailhog
