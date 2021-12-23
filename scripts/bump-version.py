@@ -39,9 +39,10 @@ if __name__ == "__main__":
         print("Did not find the last bump commit. Assuming PATCH update now")
         upgrade_type = UpgradeType.PATCH
     else:
-        last_bump_commit_hash = str(from_commit_hash_process.stdout, 'UTF-8')
+        last_bump_commit_hash = str(from_commit_hash_process.stdout, 'UTF-8').strip()
+        print(last_bump_commit_hash)
         get_commits_process = subprocess.run(
-            f"git log --pretty=format:%s {last_bump_commit_hash}..HEAD .",
+            f"git log --pretty=format:%s '{last_bump_commit_hash}..HEAD' .",
             cwd=f"./charts/{chart_name}",
             shell=True,
             capture_output=True)
