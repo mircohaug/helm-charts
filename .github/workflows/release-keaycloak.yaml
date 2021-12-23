@@ -27,7 +27,7 @@ jobs:
           python-version: 3.9
 
       - name: Bump Version
-          run: |
+        run: |
             python scripts/bump-version.py keycloak
 
 #      - name: Install Helm
