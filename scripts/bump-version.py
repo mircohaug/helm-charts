@@ -32,15 +32,19 @@ if __name__ == "__main__":
     chart_name = sys.argv[1]
     print(f"Bumping version for: {chart_name}")
 
-    from_commit_hash_process = subprocess.run(f"git rev-parse ':/^Bump {chart_name} version:'")
+    from_commit_hash_process = subprocess.run(f"git rev-parse ':/^Bump {chart_name} version:'",
+                                              shell=True,
+                                              capture_output=True)
     if from_commit_hash_process.returncode != 0:
         print("Did not find the last bump commit. Assuming PATCH update now")
         upgrade_type = UpgradeType.PATCH
     else:
         last_bump_commit_hash = str(from_commit_hash_process.stdout, 'UTF-8')
-        get_commits_process = subprocess.run([
-            f"git log --pretty=format:%s {last_bump_commit_hash}..HEAD ."],
-            cwd=f"./charts/{chart_name}", shell=True, capture_output=True)
+        get_commits_process = subprocess.run(
+            f"git log --pretty=format:%s {last_bump_commit_hash}..HEAD .",
+            cwd=f"./charts/{chart_name}",
+            shell=True,
+            capture_output=True)
 
         handle_subprocess_error(get_commits_process, "Obtaining the commits since the last tag was not successful.")
 
@@ -66,7 +70,8 @@ if __name__ == "__main__":
 
     print(f"Doing upgrade of type {upgrade_type.value} now")
 
-    bumpver_process = subprocess.run(f"bump2version {upgrade_type.value}", shell=True,
+    bumpver_process = subprocess.run(f"bump2version {upgrade_type.value}",
+                                     shell=True,
                                      cwd=f"./charts/{chart_name}",
                                      capture_output=True)
     handle_subprocess_error(bumpver_process, "Could not execute version bump")
