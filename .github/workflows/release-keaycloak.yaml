@@ -1,0 +1,47 @@
+name: Release Charts
+
+on:
+  push:
+    branches:
+      - master
+#    paths:
+#      - 'charts/keycloak/**'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Bump Version
+          run: |
+            python scripts/bump-version.py keycloak
+
+#      - name: Install Helm
+#        uses: azure/setup-helm@v1
+#        with:
+#          version: v3.5.1
+#
+#      - name: Add dependency chart repos
+#        run: |
+#          helm repo add bitnami https://charts.bitnami.com/bitnami
+#
+#      - name: Run chart-releaser
+#        uses: helm/chart-releaser-action@v1.1.0
+#        with:
+#          charts_dir: charts
+#        env:
+#          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
