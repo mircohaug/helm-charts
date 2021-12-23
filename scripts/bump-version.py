@@ -29,9 +29,6 @@ def handle_subprocess_error(subprocess_result, error_message):
 
 
 if __name__ == "__main__":
-    print(f"Arguments count: {len(sys.argv)}")
-    for i, arg in enumerate(sys.argv):
-        print(f"Argument {i:>6}: {arg}")
     chart_name = sys.argv[1]
     print(f"Bumping version for: {chart_name}")
     print(str(subprocess.run(["pwd"], capture_output=True).stdout, "UTF-8"))

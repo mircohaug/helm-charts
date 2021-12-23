@@ -1,6 +1,6 @@
 # Keycloak
 
-[Keycloak](http://www.keycloak.org/) is an open source identity and access management for modern applications and services.
+[Keycloak](http://www.keycloak.org/) is an open source identity and access management for modern applications and services...
 
 ## TL;DR;
 
