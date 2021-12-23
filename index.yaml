@@ -3,14 +3,14 @@ entries:
   keycloak:
   - apiVersion: v2
     appVersion: 15.0.2
-    created: "2021-12-23T12:21:35.47057719Z"
+    created: "2021-12-23T12:36:31.001780972Z"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
       repository: https://charts.bitnami.com/bitnami
       version: 10.3.13
     description: Open Source Identity and Access Management For Modern Applications and Services
-    digest: f5db41b6772d5bf68b55b7c9b097f80725ea545a2d02d127ffd10f28cbd89ec7
+    digest: efc300048a22762ff63feeb6de05a01a46053d78fc8e3f8888e3eeab0f2f7495
     home: https://www.keycloak.org/
     icon: https://www.keycloak.org/resources/images/keycloak_logo_480x108.png
     keywords:
@@ -31,6 +31,6 @@ entries:
     - https://github.com/jboss-dockerfiles/keycloak
     - https://github.com/bitnami/charts/tree/master/bitnami/postgresql
     urls:
-    - https://github.com/mircohaug/helm-charts/releases/download/keycloak-16.0.8/keycloak-16.0.8.tgz
-    version: 16.0.8
-generated: "2021-12-23T12:21:35.32578966Z"
+    - https://github.com/mircohaug/helm-charts/releases/download/keycloak-16.0.9/keycloak-16.0.9.tgz
+    version: 16.0.9
+generated: "2021-12-23T12:36:30.787723949Z"
