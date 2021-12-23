@@ -34,10 +34,10 @@ if __name__ == "__main__":
         print(f"Argument {i:>6}: {arg}")
     chart_name = sys.argv[1]
     print(f"Bumping version for: {chart_name}")
-    print((subprocess.run(["pwd"], capture_output=True).stdout, "UTF-8"))
+    print(str(subprocess.run(["pwd"], capture_output=True).stdout, "UTF-8"))
     get_commits_process = subprocess.run(["/bin/bash", "-c",
                                           f"git log --pretty=format:%s $(git tag --list --sort=-version:refname '{chart_name}-*' | head -n 1)..HEAD ."],
-                                         cwd=f"../charts/{chart_name}", capture_output=True)
+                                         cwd=f"./charts/{chart_name}", capture_output=True)
 
     handle_subprocess_error(get_commits_process, "Obtaining the commits since the last tag was not successful.")
 
