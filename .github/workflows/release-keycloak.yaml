@@ -35,7 +35,7 @@ jobs:
             python scripts/bump-version.py keycloak
             git push
   release:
-    if: ${{ needs.bump-version.outputs.publish == true }}
+    if: ${{ needs.bump-version.outputs.publish }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
