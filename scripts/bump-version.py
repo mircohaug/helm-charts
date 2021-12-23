@@ -31,38 +31,44 @@ def handle_subprocess_error(subprocess_result, error_message):
 if __name__ == "__main__":
     chart_name = sys.argv[1]
     print(f"Bumping version for: {chart_name}")
-    print(str(subprocess.run(["pwd"], capture_output=True).stdout, "UTF-8"))
-    get_commits_process = subprocess.run(["/bin/bash", "-c",
-                                          f"git log --pretty=format:%s $(git rev-parse :/^{chart_name} || git tag --list --sort=-version:refname '{chart_name}-*' | head -n 1)..HEAD ."],
-                                         cwd=f"./charts/{chart_name}", capture_output=True)
 
-    handle_subprocess_error(get_commits_process, "Obtaining the commits since the last tag was not successful.")
+    from_commit_hash_process = subprocess.run(f"git rev-parse ':/^Bump {chart_name} version:'")
+    if from_commit_hash_process.returncode != 0:
+        print("Did not find the last bump commit. Assuming PATCH update now")
+        upgrade_type = UpgradeType.PATCH
+    else:
+        last_bump_commit_hash = str(from_commit_hash_process.stdout, 'UTF-8')
+        get_commits_process = subprocess.run([
+            f"git log --pretty=format:%s {last_bump_commit_hash}..HEAD ."],
+            cwd=f"./charts/{chart_name}", shell=True, capture_output=True)
 
-    # get the needed upgrade type
-    print("inspected the following commit messages:")
-    commit_messages = str(get_commits_process.stdout, "UTF-8").strip().split("\n")
-    print(commit_messages)
-    for line in commit_messages:
-        if len(line) == 0:
-            continue
+        handle_subprocess_error(get_commits_process, "Obtaining the commits since the last tag was not successful.")
 
-        if any(x.lower() in line.lower() for x in MAJOR_KEYWORDS):
-            upgrade_type = UpgradeType.MAJOR
-            break
-        elif any(x.lower() in line.lower() for x in MINOR_KEYWORDS):
-            upgrade_type = UpgradeType.MINOR
-        elif upgrade_type != UpgradeType.MINOR and not any(x.lower() in line.lower() for x in SKIP_BUMP_KEYWORDS):
-            upgrade_type = UpgradeType.PATCH
+        print("inspected the following commit messages:")
+        commit_messages = str(get_commits_process.stdout, "UTF-8").strip().split("\n")
+        print(commit_messages)
+        for line in commit_messages:
+            if len(line) == 0:
+                continue
 
-    print(f"Doing upgrade of type {upgrade_type.value} now")
+            if any(x.lower() in line.lower() for x in MAJOR_KEYWORDS):
+                upgrade_type = UpgradeType.MAJOR
+                break
+            elif any(x.lower() in line.lower() for x in MINOR_KEYWORDS):
+                upgrade_type = UpgradeType.MINOR
+            elif upgrade_type != UpgradeType.MINOR and not any(x.lower() in line.lower() for x in SKIP_BUMP_KEYWORDS):
+                upgrade_type = UpgradeType.PATCH
+
     if upgrade_type == UpgradeType.NONE:
         print("No need for a version bump detected")
         print("::set-output name=publish::false")
         exit(0)
 
-    subprocess_run = subprocess.run(f"bump2version {upgrade_type.value}", shell=True,
-                                    cwd=f"./charts/{chart_name}",
-                                    capture_output=True)
-    handle_subprocess_error(subprocess_run, "Could not execute version bump")
+    print(f"Doing upgrade of type {upgrade_type.value} now")
+
+    bumpver_process = subprocess.run(f"bump2version {upgrade_type.value}", shell=True,
+                                     cwd=f"./charts/{chart_name}",
+                                     capture_output=True)
+    handle_subprocess_error(bumpver_process, "Could not execute version bump")
 
     print("::set-output name=publish::true")
