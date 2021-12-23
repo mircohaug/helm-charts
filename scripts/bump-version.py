@@ -12,7 +12,7 @@ class UpgradeType(Enum):
 
 MAJOR_KEYWORDS = ["breaking", "major"]
 MINOR_KEYWORDS = ["feat", "feature", "minor"]
-SKIP_BUMP_KEYWORDS = ["chore"]
+SKIP_BUMP_KEYWORDS = ["chore", "Bump version"]
 
 upgrade_type = UpgradeType.NONE
 
