@@ -1,12 +1,17 @@
+name: Release Keycloak chart
 on:
   push:
     branches:
       - master
     paths:
-      - 'charts/keycloak/**'
+      - 'charts/**'
   workflow_dispatch:
 jobs:
-  callWorkflow:
+  release:
     uses: mircohaug/helm-charts/.github/workflows/release-chart.yaml@master
     with:
       chart: keycloak
+  mailhog:
+    uses: mircohaug/helm-charts/.github/workflows/release-chart.yaml@master
+    with:
+      chart: mailhof

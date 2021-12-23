@@ -33,7 +33,7 @@ jobs:
             pip install bump2version
             python scripts/bump-version.py ${{ inputs.chart }}
             git push
-  release:
+  upload:
     runs-on: ubuntu-latest
     needs:
       - bump-version
