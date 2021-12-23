@@ -33,7 +33,7 @@ jobs:
         run: |
             python scripts/bump-version.py keycloak
   release:
-    if: ${{ jobs.bump-version.outputs.publish == true }}
+    if: ${{ needs.bump-version.outputs.publish == true }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
