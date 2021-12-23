@@ -46,9 +46,9 @@ jobs:
 
       - name: Configure Git
         run: |
-          echo '{{ needs.bump-version.outputs.publish }}'
-          echo '{{ needs.bump-version.outputs.publish == true }}'
-          echo '{{ needs.bump-version.outputs.publish === true }}'
+          echo '${{ needs.bump-version.outputs.publish }}'
+          echo '${{ needs.bump-version.outputs.publish == true }}'
+          echo '${{ needs.bump-version.outputs.publish === true }}'
 
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
