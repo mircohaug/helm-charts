@@ -33,6 +33,7 @@ jobs:
         run: |
             pip install bump2version
             python scripts/bump-version.py keycloak
+            git status
   release:
     if: ${{ needs.bump-version.outputs.publish == true }}
     runs-on: ubuntu-latest
