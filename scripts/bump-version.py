@@ -42,7 +42,9 @@ if __name__ == "__main__":
     handle_subprocess_error(get_commits_process, "Obtaining the commits since the last tag was not successful.")
 
     # get the needed upgrade type
+    print("inspected the following commit messages:")
     for line in str(get_commits_process.stdout, "UTF-8").split("/n"):
+        print(line)
         if any(x.lower() in line.lower() for x in MAJOR_KEYWORDS):
             upgrade_type = UpgradeType.MAJOR
             break
@@ -51,14 +53,14 @@ if __name__ == "__main__":
         elif upgrade_type != UpgradeType.MINOR and not any(x.lower() in line.lower() for x in SKIP_BUMP_KEYWORDS):
             upgrade_type = UpgradeType.PATCH
 
+    print(f"Doing upgrade of type {upgrade_type.value} now")
     if upgrade_type == UpgradeType.NONE:
         print("::set-output name=publish::false")
         exit(0)
 
-    print(upgrade_type)
     subprocess_run = subprocess.run(f"bump2version {upgrade_type.value}", shell=True,
                                     cwd=f"./charts/{chart_name}",
                                     capture_output=True)
     handle_subprocess_error(subprocess_run, "Could not execute version bump")
 
-    print("::set-output name=publish::false")
+    print("::set-output name=publish::true")
