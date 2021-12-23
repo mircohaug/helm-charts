@@ -7,6 +7,6 @@ on:
   workflow_dispatch:
 jobs:
   callWorkflow:
-    uses: ${{GITHUB_REPOSITORY}/.github/workflows/release-chart.yaml@master
+    uses: mircohaug/helm-charts/.github/workflows/release-chart.yaml@master
     with:
       chart: keycloak
