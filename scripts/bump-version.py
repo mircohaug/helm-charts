@@ -57,7 +57,7 @@ if __name__ == "__main__":
 
     print(upgrade_type)
     subprocess_run = subprocess.run(f"bump2version {upgrade_type.value}", shell=True,
-                                    cwd=f"../charts/{chart_name}",
+                                    cwd=f"./charts/{chart_name}",
                                     capture_output=True)
     handle_subprocess_error(subprocess_run, "Could not execute version bump")
 
