@@ -27,12 +27,14 @@ def handle_subprocess_error(subprocess_result, error_message):
         print(str(subprocess_result.stdout, "UTF-8"))
         exit(1)
 
+
 if __name__ == "__main__":
     print(f"Arguments count: {len(sys.argv)}")
     for i, arg in enumerate(sys.argv):
         print(f"Argument {i:>6}: {arg}")
     chart_name = sys.argv[1]
     print(f"Bumping version for: {chart_name}")
+    print((subprocess.run(["pwd"], capture_output=True).stdout, "UTF-8"))
     get_commits_process = subprocess.run(["/bin/bash", "-c",
                                           f"git log --pretty=format:%s $(git tag --list --sort=-version:refname '{chart_name}-*' | head -n 1)..HEAD ."],
                                          cwd=f"../charts/{chart_name}", capture_output=True)
