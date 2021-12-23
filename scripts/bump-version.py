@@ -43,7 +43,8 @@ if __name__ == "__main__":
 
     # get the needed upgrade type
     print("inspected the following commit messages:")
-    for line in str(get_commits_process.stdout, "UTF-8").split("/n"):
+    commit_messages = str(get_commits_process.stdout, "UTF-8").strip().split("/n")
+    for line in commit_messages:
         print(line)
         if any(x.lower() in line.lower() for x in MAJOR_KEYWORDS):
             upgrade_type = UpgradeType.MAJOR
