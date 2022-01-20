@@ -27,8 +27,8 @@ jobs:
       uses: ./.github/actions/bumpVersionAction
       with:
         chart: keycloak
-    - name: find out what happend
-      run: |
-        ls -a
-        git status
-        git log -n 5
+#    - name: find out what happend
+#      run: |
+#        ls -a
+#        git status
+#        git log -n 5
