@@ -1,7 +1,7 @@
 # Container image that runs your code
 FROM python:alpine
 
-RUN pip install bump2version
+RUN pip install bump2version && apk add git
 
 COPY entrypoint.sh /entrypoint.sh
 COPY bump-version.py /bump-version.py
