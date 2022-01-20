@@ -44,6 +44,11 @@ jobs:
           git push
           echo '::set-output name=publish::true'
         fi
+    - name: test smth
+
+      run: |
+        echo 'Output...'
+        echo '${{ steps.push-results.outputs.publish }}'
 
   upload:
     runs-on: ubuntu-latest
