@@ -37,12 +37,12 @@ jobs:
     - name: push-results
       run: |
         if git merge-base --is-ancestor HEAD @{u} ; then
-          echo ::set-output name=publish::false
+          echo '::set-output name=publish::false'
           echo "No push necesarry"
         else
           echo "Version bumps happened. Pushing now..."
           git push
-          echo ::set-output name=publish::true
+          echo '::set-output name=publish::true'
         fi
 
   upload:
