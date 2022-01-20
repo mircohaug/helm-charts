@@ -32,7 +32,7 @@ jobs:
     - name: bump mailhog
       uses: ./.github/actions/bumpVersionAction
       with:
-        chart: keycloak
+        chart: mailhog
 
     - name: push-results
       run: |
