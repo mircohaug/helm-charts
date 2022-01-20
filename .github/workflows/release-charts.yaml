@@ -10,25 +10,70 @@ on:
     - cron: '0 16 * * 5'
   workflow_dispatch:
 jobs:
-  doUpdate:
+  bump-versions:
     runs-on: ubuntu-latest
+    outputs:
+      publish: ${{ steps.push-results.outputs.publish }}
     steps:
     - name: Checkout
       uses: actions/checkout@v2
       with:
         fetch-depth: 0
-
     - name: Configure Git
       run: |
         git config user.name "$GITHUB_ACTOR"
         git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
-    - name: update keycloak
+    - name: bump keycloak
       uses: ./.github/actions/bumpVersionAction
       with:
         chart: keycloak
-    - name: find out what happend
+
+    - name: bump mailhog
+      uses: ./.github/actions/bumpVersionAction
+      with:
+        chart: keycloak
+
+    - name: push-results
       run: |
-        git log -n 5
-        git push
-        git log -n 5
+        if git merge-base --is-ancestor HEAD @{u} ; then
+          echo ::set-output name=publish::false
+          echo "No push necesarry"
+        else
+          echo "Version bumps happened. Pushing now..."
+          git push
+          echo ::set-output name=publish::true
+        fi
+
+  upload:
+    runs-on: ubuntu-latest
+    needs:
+      - bump-versions
+    if: needs.bump-versions.outputs.publish == 'true'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          git pull
+
+      - name: Install Helm
+        uses: azure/setup-helm@v1
+        with:
+          version: v3.5.1
+
+      - name: Add dependency chart repos
+        run: |
+          helm repo add bitnami https://charts.bitnami.com/bitnami
+
+      - name: Run chart-releaser
+        uses: helm/chart-releaser-action@v1.1.0
+        with:
+          charts_dir: charts
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
