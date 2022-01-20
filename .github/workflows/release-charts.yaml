@@ -10,13 +10,14 @@ on:
     - cron: '0 16 * * 5'
   workflow_dispatch:
 jobs:
-  keycloak:
-    uses: .github/workflows/release-chart-base.yaml@master
-    with:
-      chart: keycloak
-  mailhog:
-    needs:
-      - keycloak
-    uses: .github/workflows/release-chart-base.yaml@master
-    with:
-      chart: mailhog
+  doUpdate:
+    runs-on: ubuntu-latest
+    steps:
+    - name: update keycloak
+      uses: ./.github/workflows/release-chart-base.yaml
+      with:
+        chart: keycloak
+    - name: update mailhog
+      uses: ./.github/workflows/release-chart-base.yaml
+      with:
+        chart: mailhog
