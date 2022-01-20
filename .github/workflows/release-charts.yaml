@@ -11,12 +11,12 @@ on:
   workflow_dispatch:
 jobs:
   keycloak:
-    uses: ./.github/workflows/release-chart-base.yaml@master
+    uses: ./.github/workflows/release-chart-base.yaml
     with:
       chart: keycloak
   mailhog:
     needs:
       - keycloak
-    uses: ./.github/workflows/release-chart-base.yaml@master
+    uses: ./.github/workflows/release-chart-base.yaml
     with:
       chart: mailhog
