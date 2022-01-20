@@ -1,0 +1,15 @@
+name: 'Bumps a version with bumpver'
+description: 'TODO desc'
+inputs:
+  chart:  # id of input
+    description: 'The chart to update'
+    required: true
+#    TODO also allow passing of chart dir location
+outputs:
+  publish:
+    description: 'Should the chart to update be published'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.chart }}

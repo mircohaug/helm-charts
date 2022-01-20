@@ -1,8 +1,8 @@
 name: Release charts
 on:
-#  push:
-#    branches:
-#      - master
+  push:
+    branches:
+      - master
 #    paths:
 #      - 'charts/**'
   schedule:
@@ -14,10 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: update keycloak
-      uses: ./.github/workflows/release-chart-base.yaml
+      uses: ./.github/actions/bumpVersionAction
       with:
         chart: keycloak
-    - name: update mailhog
-      uses: ./.github/workflows/release-chart-base.yaml
-      with:
-        chart: mailhog
