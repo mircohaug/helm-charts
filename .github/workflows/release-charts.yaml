@@ -13,7 +13,7 @@ jobs:
   bump-versions:
     runs-on: ubuntu-latest
     outputs:
-      publish: ${{ steps.push-results.outputs.publish }}
+      publish: ${{ steps.pushResults.outputs.publish }}
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -35,6 +35,7 @@ jobs:
         chart: mailhog
 
     - name: push-results
+      id: pushResults
       run: |
         if git merge-base --is-ancestor HEAD @{u} ; then
           echo '::set-output name=publish::false'
@@ -48,7 +49,7 @@ jobs:
 
       run: |
         echo 'Output...'
-        echo '${{ steps.push-results.outputs.publish }}'
+        echo '${{join(steps.pushResults.outputs.*, '\n')}}'
 
   upload:
     runs-on: ubuntu-latest
