@@ -29,4 +29,6 @@ jobs:
         chart: keycloak
     - name: find out what happend
       run: |
-        git log -n 5 --oneline
+        git log -n 5
+        git push
+        git log -n 5
