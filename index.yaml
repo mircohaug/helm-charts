@@ -3,14 +3,14 @@ entries:
   keycloak:
   - apiVersion: v2
     appVersion: 15.0.2
-    created: "2021-12-23T15:13:55.770336221Z"
+    created: "2022-01-28T12:43:43.111904297Z"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
       repository: https://charts.bitnami.com/bitnami
       version: 10.3.13
     description: Open Source Identity and Access Management For Modern Applications and Services
-    digest: 9fc0c51f74e2d16e83c1b13c032a76cad3c4407a89e67378cd672cc95c622025
+    digest: b2c7e7617cc83364de86dfa35b64884fdfffdd8a94450dc46077d51d60c954c2
     home: https://www.keycloak.org/
     icon: https://www.keycloak.org/resources/images/keycloak_logo_480x108.png
     keywords:
@@ -31,6 +31,31 @@ entries:
     - https://github.com/jboss-dockerfiles/keycloak
     - https://github.com/bitnami/charts/tree/master/bitnami/postgresql
     urls:
-    - https://github.com/mircohaug/helm-charts/releases/download/keycloak-18.0.0/keycloak-18.0.0.tgz
-    version: 18.0.0
-generated: "2021-12-23T15:13:55.509881576Z"
+    - https://github.com/mircohaug/helm-charts/releases/download/keycloak-19.0.0/keycloak-19.0.0.tgz
+    version: 19.0.0
+  mailhog:
+  - apiVersion: v2
+    appVersion: v1.0.1
+    created: "2022-01-28T12:43:43.316589056Z"
+    description: An e-mail testing tool for developers
+    digest: 24d3bdb1cb3291a600055fbe2b98c3503dcf85b6dd628333302410714815b044
+    home: http://iankent.uk/project/mailhog/
+    icon: https://raw.githubusercontent.com/mailhog/MailHog-UI/master/assets/images/hog.png
+    keywords:
+    - mailhog
+    - mail
+    - smtp
+    - email
+    - e-mail
+    - testing
+    maintainers:
+    - email: unguiculus@gmail.com
+      name: unguiculus
+    name: mailhog
+    sources:
+    - https://github.com/mailhog/MailHog
+    type: application
+    urls:
+    - https://github.com/mircohaug/helm-charts/releases/download/mailhog-5.0.5/mailhog-5.0.5.tgz
+    version: 5.0.5
+generated: "2022-01-28T12:43:42.964141193Z"
