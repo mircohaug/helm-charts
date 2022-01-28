@@ -1,8 +1,8 @@
 name: Release charts
 on:
-  push:
-    branches:
-      - master
+#  push:
+#    branches:
+#      - master
 #    paths:
 #      - 'charts/**'
   schedule:
@@ -12,8 +12,6 @@ on:
 jobs:
   bump-versions:
     runs-on: ubuntu-latest
-    outputs:
-      publish: ${{ steps.pushResults.outputs.publish }}
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -45,6 +43,8 @@ jobs:
           git push
           echo '::set-output name=publish::true'
         fi
+    outputs:
+      publish: ${{ steps.pushResults.outputs.publish }}
 
   upload:
     runs-on: ubuntu-latest
