@@ -13,6 +13,7 @@ extraEnv: |
       -Djboss.modules.system.pkgs=$JBOSS_MODULES_SYSTEM_PKGS
       -Djava.awt.headless=true
 
+
 secrets:
   admin-creds:
     annotations:
