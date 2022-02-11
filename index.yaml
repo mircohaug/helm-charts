@@ -2,17 +2,17 @@ apiVersion: v1
 entries:
   keycloak:
   - apiVersion: v2
-    appVersion: 15.0.2
-    created: "2022-01-28T12:43:43.111904297Z"
+    appVersion: 16.1.1
+    created: "2022-02-11T16:28:41.003595808Z"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
       repository: https://charts.bitnami.com/bitnami
       version: 10.3.13
     description: Open Source Identity and Access Management For Modern Applications and Services
-    digest: b2c7e7617cc83364de86dfa35b64884fdfffdd8a94450dc46077d51d60c954c2
+    digest: f2dd4812929a80ba41f50c53b2fbcfd5dcbd8f837a7c6c1f6429c1f786649aea
     home: https://www.keycloak.org/
-    icon: https://www.keycloak.org/resources/images/keycloak_logo_480x108.png
+    icon: https://www.keycloak.org/resources/images/keycloak_icon_512px.svg
     keywords:
     - sso
     - idm
@@ -31,14 +31,14 @@ entries:
     - https://github.com/jboss-dockerfiles/keycloak
     - https://github.com/bitnami/charts/tree/master/bitnami/postgresql
     urls:
-    - https://github.com/mircohaug/helm-charts/releases/download/keycloak-19.0.0/keycloak-19.0.0.tgz
-    version: 19.0.0
+    - https://github.com/mircohaug/helm-charts/releases/download/keycloak-17.0.2/keycloak-17.0.2.tgz
+    version: 17.0.2
   mailhog:
   - apiVersion: v2
     appVersion: v1.0.1
-    created: "2022-01-28T12:43:43.316589056Z"
+    created: "2022-02-11T16:28:41.112850888Z"
     description: An e-mail testing tool for developers
-    digest: 24d3bdb1cb3291a600055fbe2b98c3503dcf85b6dd628333302410714815b044
+    digest: ce0e0eab730bd7271b2d6055f10c566066be51244abf96ff4ca61d34e204fee3
     home: http://iankent.uk/project/mailhog/
     icon: https://raw.githubusercontent.com/mailhog/MailHog-UI/master/assets/images/hog.png
     keywords:
@@ -58,4 +58,4 @@ entries:
     urls:
     - https://github.com/mircohaug/helm-charts/releases/download/mailhog-5.0.5/mailhog-5.0.5.tgz
     version: 5.0.5
-generated: "2022-01-28T12:43:42.964141193Z"
+generated: "2022-02-11T16:28:40.867431284Z"
