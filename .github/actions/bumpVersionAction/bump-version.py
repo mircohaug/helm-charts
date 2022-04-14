@@ -36,6 +36,7 @@ if __name__ == "__main__":
                                               shell=True,
                                               capture_output=True)
     if from_commit_hash_process.returncode != 0:
+        print(str(from_commit_hash_process.stderr, 'UTF-8'))
         print("Did not find the last bump commit. Assuming PATCH update now")
         upgrade_type = UpgradeType.PATCH
     else:
