@@ -1,6 +1,6 @@
 name: Release charts
 on:
-#  push:
+  push:
     branches:
       - master
 #    paths:
