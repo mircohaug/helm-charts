@@ -1,3 +1,4 @@
+import os
 import subprocess
 import sys
 from enum import Enum
@@ -29,7 +30,7 @@ def handle_subprocess_error(subprocess_result, error_message):
 
 
 if __name__ == "__main__":
-    chart_name = sys.argv[1]
+    chart_name = os.getenv("CHART_NAME")
     print(f"Bumping chart version for: {chart_name}")
 
     from_commit_hash_process = subprocess.run(f"git rev-parse ':/^Bump {chart_name} chart version:'",
